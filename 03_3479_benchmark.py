@@ -29,5 +29,18 @@ cenario = {'Lista Aleatória': aleatoria, 'Lista Desfavorável/Invertida': desfa
 num = [100, 500, 1000, 5000] 
 tempo_total = {'Tempo Médio (s)': tempo} 
 
+resultados = [] 
 
-    
+print(f"{'algoritmo':<18} | {'tamanho (N)':<11} | {'cenário':<28} | {'tempo médio (s)':<15}")
+print("-" * 80)
+
+for nome_cenario, func_geradora in cenario.items():
+    for n in num:
+        dados = func_geradora(n)
+        
+        for nome_alg, func_alg in algoritmos.items():
+            try:
+                tempo_medio = tempo(func_alg, dados, k=50)
+                print(f"{nome_alg:<18} | {n:<11} | {nome_cenario:<28} | {tempo_medio:<15.6f}")
+            except Exception:
+                print(f"{nome_alg:<18} | {n:<11} | {nome_cenario:<28} | {'limite esgotado':<15}")
